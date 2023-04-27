@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "431335396559",
+    "project_id": "handly-11965",
+    "storage_bucket": "handly-11965.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431335396559:android:da35e21bc582edb15dd3ba",
+        "android_client_info": {
+          "package_name": "com.example.handly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431335396559-0jql7cuadvcbaum5qsrbvomrq23fp9tq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.handly",
+            "certificate_hash": "7eec8452d08d45e4907f1368efd69d21e876f924"
+          }
+        },
+        {
+          "client_id": "431335396559-gku2nqdr29s3n7p8sckfsdph8rkljc7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbZXzJyc7PBgGgi06JD-rqkXuS3P_x98M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431335396559-gku2nqdr29s3n7p8sckfsdph8rkljc7j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
