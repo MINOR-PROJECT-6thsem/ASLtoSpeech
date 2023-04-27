@@ -186,12 +186,14 @@ class _asltoState extends State<aslto> {
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.blue, Colors.purple],
+              colors: [Colors.white, Colors.pink],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
           child: AppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.transparent,
             title: const Text('ASL to Text'),
           ),
         ),
