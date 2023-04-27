@@ -68,6 +68,7 @@ class _scrState extends State<scr> {
     );
   }
 
+/*
   Widget asltos() {
     return Center(
       child: Padding(
@@ -121,7 +122,7 @@ class _scrState extends State<scr> {
       ),
     );
   }
-
+*/
   Widget asltot() {
     return Center(
       child: Padding(
@@ -182,7 +183,8 @@ class _scrState extends State<scr> {
       ),
     );
   }
-@override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -276,15 +278,15 @@ class _scrState extends State<scr> {
                 padding: EdgeInsets.fromLTRB(25.0, 150.0, 25.0, 25.0),
               ),
             ),
-            Positioned(
+            /*  Positioned(
               top: 250.0,
               left: 0.0,
               right: 0.0,
               child: asltos(),
-            ),
-            SizedBox(height: 20.0),
+            ),*/
+            //SizedBox(height: 20.0),
             Positioned(
-              top: 450.0,
+              top: 350.0,
               left: 0.0,
               right: 0.0,
               child: asltot(),
