@@ -122,12 +122,12 @@ class _asltoState extends State<aslto> {
             return plane.bytes;
           },
         ).toList(),
-        imageHeight: 1 * cameraImage!.height,
+        imageHeight: cameraImage!.height,
         imageWidth: cameraImage!.width,
         imageMean: 127.5,
         imageStd: 127.5,
         rotation: 90,
-        numResults: 2,
+        numResults: 3,
         threshold: 0.1,
         asynch: true,
       );
@@ -135,13 +135,16 @@ class _asltoState extends State<aslto> {
       if (predictions != null && predictions.isNotEmpty) {
         answer = '';
         predictions.forEach((prediction) {
-          answer +=
-              prediction['label'].toString().substring(0, 1).toUpperCase() +
-                  prediction['label'].toString().substring(1) +
-                  " " +
-                  (prediction['confidence'] as double).toStringAsFixed(2) +
-                  '\n';
-          print('Prediction: $prediction');
+          if (prediction.length >= 3) {
+            // add a check for the length of the map
+            answer +=
+                prediction['label'].toString().substring(0, 1).toUpperCase() +
+                    prediction['label'].toString().substring(1) +
+                    " " +
+                    (prediction['confidence'] as double).toStringAsFixed(2) +
+                    '\n';
+            print('Prediction: $prediction');
+          }
         });
 
         if (mounted) {
