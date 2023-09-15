@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'dart:async';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'screen.dart';
+import 'dart:ui' as ui;
 
 List<CameraDescription>? cameras;
 
@@ -112,53 +113,61 @@ class _asltoState extends State<aslto> {
   Future<void> applymodelonimages() async {
     if (cameraImage != null && !_interpreterBusy) {
       print('Model is applying on camera image...');
+      print('Before setting interpreterBusy flag: $_interpreterBusy');
       setState(() {
         _interpreterBusy = true;
       });
+      print('After setting interpreterBusy flag: $_interpreterBusy');
       print('Image shape: ${cameraImage!.width} x ${cameraImage!.height}');
-      var predictions = await Tflite.runModelOnFrame(
-        bytesList: cameraImage!.planes.map(
-          (plane) {
-            return plane.bytes;
-          },
-        ).toList(),
-        imageHeight: cameraImage!.height,
-        imageWidth: cameraImage!.width,
-        imageMean: 127.5,
-        imageStd: 127.5,
-        rotation: 90,
-        numResults: 3,
-        threshold: 0.1,
-        asynch: true,
-      );
+      try {
+        var predictions = await Tflite.runModelOnFrame(
+          bytesList: cameraImage!.planes.map(
+            (plane) {
+              return plane.bytes;
+            },
+          ).toList(),
+          imageHeight: cameraImage!.height,
+          imageWidth: cameraImage!.width,
+          imageMean: 127.5,
+          imageStd: 127.5,
+          rotation: 90,
+          numResults: 1,
+          threshold: 0.3,
+          asynch: false,
+        );
+        print('Number of predictions: ${predictions!.length}');
+        if (predictions != null && predictions.isNotEmpty) {
+          answer = '';
+          predictions.forEach((prediction) {
+            if (prediction.length >= 3) {
+              // add a check for the length of the map
+              answer +=
+                  prediction['label'].toString().substring(0, 1).toUpperCase() +
+                      prediction['label'].toString().substring(1) +
+                      " " +
+                      (prediction['confidence'] as double).toStringAsFixed(2) +
+                      '\n';
+              print('Prediction: $prediction');
+            }
+          });
 
-      if (predictions != null && predictions.isNotEmpty) {
-        answer = '';
-        predictions.forEach((prediction) {
-          if (prediction.length >= 3) {
-            // add a check for the length of the map
-            answer +=
-                prediction['label'].toString().substring(0, 1).toUpperCase() +
-                    prediction['label'].toString().substring(1) +
-                    " " +
-                    (prediction['confidence'] as double).toStringAsFixed(2) +
-                    '\n';
-            print('Prediction: $prediction');
+          if (mounted) {
+            setState(() {
+              answer = answer;
+            });
           }
-        });
-
+          print('Answer: $answer');
+        } else {
+          print('No prediction!');
+        }
+      } catch (e) {
+        print('Error occurred during model inference: $e');
+      } finally {
         if (mounted) {
           setState(() {
-            answer = answer;
+            _interpreterBusy = false;
           });
         }
-        print('Answer: $answer');
-      }
-
-      if (mounted) {
-        setState(() {
-          _interpreterBusy = false;
-        });
       }
     }
   }

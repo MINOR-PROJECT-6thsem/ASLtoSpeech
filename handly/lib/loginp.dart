@@ -200,7 +200,7 @@ class _loginSState extends State<loginS> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
           ),
-          primary: Colors.white,
+          backgroundColor: Colors.white,
         ),
         child: Text(
           'LOGIN',
